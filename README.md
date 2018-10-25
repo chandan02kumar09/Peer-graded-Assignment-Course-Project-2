@@ -1,79 +1,74 @@
-# Reproducible-Research-Peer-Graded-Assignment-Course-Project-2
+# ExData_-Course-Project-2
+Peer-graded Assignment: Course Project 2
+InstructionsMy submissionDiscussions
+Fine particulate matter (PM2.5) is an ambient air pollutant for which there is strong evidence that it is harmful to human health. In the United States, the Environmental Protection Agency (EPA) is tasked with setting national ambient air quality standards for fine PM and for tracking the emissions of this pollutant into the atmosphere. Approximatly every 3 years, the EPA releases its database on emissions of PM2.5. This database is known as the National Emissions Inventory (NEI). You can read more information about the NEI at the EPA National Emissions Inventory web site.
 
-Instructions
-
-Introduction
-
-Storms and other severe weather events can cause both public health and economic problems for communities and municipalities. Many severe events can result in fatalities, injuries, and property damage, and preventing such outcomes to the extent possible is a key concern.
-
-This project involves exploring the U.S. National Oceanic and Atmospheric Administration's (NOAA) storm database. This database tracks characteristics of major storms and weather events in the United States, including when and where they occur, as well as estimates of any fatalities, injuries, and property damage.
-
-Data
-
-The data for this assignment come in the form of a comma-separated-value file compressed via the bzip2 algorithm to reduce its size. You can download the file from the course web site:
-
-Storm Data [47Mb]
-There is also some documentation of the database available. Here you will find how some of the variables are constructed/defined.
-
-National Weather Service Storm Data Documentation
-National Climatic Data Center Storm Events FAQ
-The events in the database start in the year 1950 and end in November 2011. In the earlier years of the database there are generally fewer events recorded, most likely due to a lack of good records. More recent years should be considered more complete.
+For each year and for each type of PM source, the NEI records how many tons of PM2.5 were emitted from that source over the course of the entire year. The data that you will use for this assignment are for 1999, 2002, 2005, and 2008.
 Review criterialess 
-Has either a (1) valid RPubs URL pointing to a data analysis document for this assignment been submitted; or (2) a complete PDF file presenting the data analysis been uploaded?
-Is the document written in English?
-Does the analysis include description and justification for any data transformations?
-Does the document have a title that briefly summarizes the data analysis?
-Does the document have a synopsis that describes and summarizes the data analysis in less than 10 sentences?
-Is there a section titled "Data Processing" that describes how the data were loaded into R and processed for analysis?
-Is there a section titled "Results" where the main results are presented?
-Is there at least one figure in the document that contains a plot?
-Are there at most 3 figures in this document?
-Does the analysis start from the raw data file (i.e. the original .csv.bz2 file)?
-Does the analysis address the question of which types of events are most harmful to population health?
-Does the analysis address the question of which types of events have the greatest economic consequences?
-Do all the results of the analysis (i.e. figures, tables, numerical summaries) appear to be reproducible?
-Do the figure(s) have descriptive captions (i.e. there is a description near the figure of what is happening in the figure)?
-As far as you can determine, does it appear that the work submitted for this project is the work of the student who submitted it?
-Assignmentless 
-Assignment
+For each question
 
-The basic goal of this assignment is to explore the NOAA Storm Database and answer some basic questions about severe weather events. You must use the database to answer the questions below and show the code for your entire analysis. Your analysis can consist of tables, figures, or other summaries. You may use any R package you want to support your analysis.
+Does the plot appear to address the question being asked?
+Is the submitted R code appropriate for construction of the submitted plot?
+Dataless 
+The data for this assignment are available from the course web site as a single zip file:
+
+Data for Peer Assessment [29Mb]
+The zip file contains two files:
+
+PM2.5 Emissions Data (summarySCC_PM25.rds): This file contains a data frame with all of the PM2.5 emissions data for 1999, 2002, 2005, and 2008. For each year, the table contains number of tons of PM2.5 emitted from a specific type of source for the entire year. Here are the first few rows.
+
+
+
+1
+2
+3
+4
+5
+6
+7
+##     fips      SCC Pollutant Emissions  type year
+## 4  09001 10100401  PM25-PRI    15.714 POINT 1999
+## 8  09001 10100404  PM25-PRI   234.178 POINT 1999
+## 12 09001 10100501  PM25-PRI     0.128 POINT 1999
+## 16 09001 10200401  PM25-PRI     2.036 POINT 1999
+## 20 09001 10200504  PM25-PRI     0.388 POINT 1999
+## 24 09001 10200602  PM25-PRI     1.490 POINT 1999
+fips: A five-digit number (represented as a string) indicating the U.S. county
+SCC: The name of the source as indicated by a digit string (see source code classification table)
+Pollutant: A string indicating the pollutant
+Emissions: Amount of PM2.5 emitted, in tons
+type: The type of source (point, non-point, on-road, or non-road)
+year: The year of emissions recorded
+Source Classification Code Table (Source_Classification_Code.rds): This table provides a mapping from the SCC digit strings in the Emissions table to the actual name of the PM2.5 source. The sources are categorized in a few different ways from more general to more specific and you may choose to explore whatever categories you think are most useful. For example, source “10100101” is known as “Ext Comb /Electric Gen /Anthracite Coal /Pulverized Coal”.
+
+You can read each of the two files using the readRDS() function in R. For example, reading in each file can be done with the following code:
+
+
+
+1
+2
+3
+## This first line will likely take a few seconds. Be patient!
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
+as long as each of those files is in your current working directory (check by calling dir() and see if those files are in the listing).
+Assignmentless 
+The overall goal of this assignment is to explore the National Emissions Inventory database and see what it say about fine particulate matter pollution in the United states over the 10-year period 1999–2008. You may use any R package you want to support your analysis.
 
 Questions
 
-Your data analysis must address the following questions:
+You must address the following questions and tasks in your exploratory analysis. For each question/task you will need to make a single plot. Unless specified, you can use any plotting system in R to make your plot.
 
-Across the United States, which types of events (as indicated in the EVTYPE variable) are most harmful with respect to population health?
-Across the United States, which types of events have the greatest economic consequences?
-Consider writing your report as if it were to be read by a government or municipal manager who might be responsible for preparing for severe weather events and will need to prioritize resources for different types of events. However, there is no need to make any specific recommendations in your report.
+Have total emissions from PM2.5 decreased in the United States from 1999 to 2008? Using the base plotting system, make a plot showing the total PM2.5 emission from all sources for each of the years 1999, 2002, 2005, and 2008.
+Have total emissions from PM2.5 decreased in the Baltimore City, Maryland (fips == "24510") from 1999 to 2008? Use the base plotting system to make a plot answering this question.
+Of the four types of sources indicated by the type (point, nonpoint, onroad, nonroad) variable, which of these four sources have seen decreases in emissions from 1999–2008 for Baltimore City? Which have seen increases in emissions from 1999–2008? Use the ggplot2 plotting system to make a plot answer this question.
+Across the United States, how have emissions from coal combustion-related sources changed from 1999–2008?
+How have emissions from motor vehicle sources changed from 1999–2008 in Baltimore City?
+Compare emissions from motor vehicle sources in Baltimore City with emissions from motor vehicle sources in Los Angeles County, California (fips == "06037"). Which city has seen greater changes over time in motor vehicle emissions?
+Making and Submitting Plotsless 
+For each plot you should
 
-Requirements
-
-For this assignment you will need some specific tools
-
-RStudio: You will need RStudio to publish your completed analysis document to RPubs. You can also use RStudio to edit/write your analysis.
-knitr: You will need the knitr package in order to compile your R Markdown document and convert it to HTML
-Document Layout
-
-Language: Your document should be written in English.
-Title: Your document should have a title that briefly summarizes your data analysis
-Synopsis: Immediately after the title, there should be a synopsis which describes and summarizes your analysis in at most 10 complete sentences.
-There should be a section titled Data Processing which describes (in words and code) how the data were loaded into R and processed for analysis. In particular, your analysis must start from the raw CSV file containing the data. You cannot do any preprocessing outside the document. If preprocessing is time-consuming you may consider using the cache = TRUE option for certain code chunks.
-There should be a section titled Results in which your results are presented.
-You may have other sections in your analysis, but Data Processing and Results are required.
-The analysis document must have at least one figure containing a plot.
-Your analysis must have no more than three figures. Figures may have multiple plots in them (i.e. panel plots), but there cannot be more than three figures total.
-You must show all your code for the work in your analysis document. This may make the document a bit verbose, but that is okay. In general, you should ensure that echo = TRUE for every code chunk (this is the default setting in knitr).
-Publishing Your Analysisless 
-For this assignment you will need to publish your analysis on RPubs.com. If you do not already have an account, then you will have to create a new account. After you have completed writing your analysis in RStudio, you can publish it to RPubs by doing the following:
-
-In RStudio, make sure your R Markdown document (.Rmd) document is loaded in the editor
-Click the Knit HTML button in the doc toolbar to preview your document.
-In the preview window, click the Publish button.
-Once your document is published to RPubs, you should get a unique URL to that document. Make a note of this URL as you will need it to submit your assignment.
-
-NOTE: If you are having trouble connecting with RPubs due to proxy-related or other issues, you can upload your final analysis document file as a PDF to Coursera instead.
-Submitting Your Assignmentless 
-In order to submit this assignment, you must copy the RPubs URL for your completed data analysis document in to the peer assessment question.
-
-If you choose to submit as a PDF, please insert an obvious placeholder URL (e.g. https://google.com) in order to allow submission.
+Construct the plot and save it to a PNG file.
+Create a separate R code file (plot1.R, plot2.R, etc.) that constructs the corresponding plot, i.e. code in plot1.R constructs the plot1.png plot. Your code file should include code for reading the data so that the plot can be fully reproduced. You must also include the code that creates the PNG file. Only include the code for a single plot (i.e. plot1.R should only include code for producing plot1.png)
+Upload the PNG file on the Assignment submission page
+Copy and paste the R code from the corresponding R file into the text box at the appropriate point in the peer assessment.
